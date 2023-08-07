@@ -10,23 +10,31 @@ class CoustomersController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth');
+         //middleware
+         // يطبق بعد انشاء الابجكت تبع الكونترلور
+
+     }
+
     public function index(Request $request)
     {
+      $customers=coustomers::orderBy('created_at','DESC')-> get();
+
         $query = coustomers::query();
 
-        // Filtering
-        if ($request->has('name')) {
-            $query->where('name', 'like', '%' . $request->input('name') . '%');
-        }
+        $customers = $query->paginate(3); // Display 3 records per page
+        //بظهرلي عدد معين من الريكورد
 
-        // Sorting
-        if ($request->has('sort')) {
-            $sortField = $request->input('sort');
-            $sortDirection = $request->input('direction', 'asc');
-            $query->orderBy($sortField, $sortDirection);
-        }
+        // // Filtering
+        // if ($request->has('name')) {
+        //     $query->where('name', 'like', '%' . $request->input('name') . '%');
+        // }
 
-        $customers = $query->paginate(3); // Display 10 records per page
+// $customer = Customer::find(1); // Assuming you have a customer with ID 1
+// $user = $customer->user; // Get the associated user
 
         return view('coustomers.index', compact('customers'));
     }
@@ -37,8 +45,7 @@ class CoustomersController extends Controller
      */
     public function create()
     {
-        // You can fetch any necessary data here
-        // For example, fetching a list of customers from the database
+      
         $coustomers = coustomers::all();
 
         return view('coustomers.create', compact('coustomers'));
@@ -60,19 +67,12 @@ $validate=$request->validate([
     'career' => 'nullable|string',
 ]);
 //mass assigment
-        $customer =($request->all());
+$customers = coustomers::create($request->all());
         return redirect()->route('coustomers.index')
         ->with('success', 'Customer created successfully');
     }
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(coustomers $coustomers)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -94,9 +94,10 @@ $validate=$request->validate([
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, coustomers $coustomers)
+    public function update(Request $request, $id)
     {
         //
+        $coustomers =coustomers::findOrFail($id);
 
     $validatedData = $request->validate([
         'name' => 'required|string',
@@ -108,18 +109,21 @@ $validate=$request->validate([
     'career' => 'nullable|string',
     ]);
 
+
     $coustomers->update($validatedData);
 
-    return redirect()->route('coustomers.index')->with('success', 'Customer updated');
+    return redirect()->route('coustomers.index')
+    ->with('success', 'Customer updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(coustomers $coustomers)
+    public function destroy($id)
     {
-        $coustomers->delete();
+        coustomers::destroy($id);
 
-        return redirect()->route('coustomers.index')->with('success', 'Customer deleted successfully');
+        return redirect()->route('coustomers.index')
+        ->with('success', 'Customer deleted successfully');
     }
 }

@@ -62,6 +62,7 @@
         </div>
       </div>
     </form>
+    {{Auth::user()->name}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -86,6 +87,8 @@
               </div>
             </div>
             <!-- Message End -->
+
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
@@ -119,6 +122,8 @@
             </div>
             <!-- Message End -->
           </a>
+
+
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
@@ -161,6 +166,7 @@
         </a>
       </li>
     </ul>
+
   </nav>
   <!-- /.navbar -->
 
@@ -205,41 +211,10 @@
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
 
+                </li>
 
-
-
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-user"></i>
-                  <p>
-                   admin
-                    <i class="right fas fa-angle-left"></i>
-
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{ route('coustomers.index') }}" class="nav-link">
-                      <i class="fas fa-list-ul"></i>
-                      <p>Index</p>
-                    </a>
-                  </li>
-
-                  {{-- <li class="nav-item">
-                    <a href="{{ route('users.create') }}" class="nav-link">
-                      <i class="fas fa-plus"></i>
-                      <p>Create</p>
-                    </a>
-                  </li> --}}
-
-                </ul>
-              </li>
-
-
-              <li class="nav-item">
+            <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fa fa-user"></i>
                   <p>
@@ -248,30 +223,43 @@
 
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
+
+                {{-- <ul class="nav nav-treeview"> --}}
                   <li class="nav-item">
                     <a href="{{ route('coustomers.index') }}" class="nav-link">
                       <i class="fas fa-list-ul"></i>
-                      <p>Index</p>
+                      <p>Show All</p>
                     </a>
                   </li>
 
                   <li class="nav-item">
                     <a href="{{ route('coustomers.create') }}" class="nav-link">
                       <i class="fas fa-plus"></i>
-                      <p>Create</p>
+                      <p>Add customer</p>
                     </a>
                   </li>
 
                 </ul>
               </li>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fas fa-user"></i>
+              <p>
+                User
+                <i class="right fas fa-angle-left"></i>
 
-
-              <li class="nav-header">Setting</li>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-
+                <a href="{{ route('users.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul"></i>
+                  <p>Show All</p>
+                </a>
               </li>
+            </ul>
+          </li>
 
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -285,14 +273,14 @@
                     <i class="fas fa-sign-out-alt"></i>
                   <p>LogOut</p>
                 </a>
-              </li>
+            </li>
 
-            </ul>
-          </nav>
-          <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-      </aside>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">

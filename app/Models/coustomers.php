@@ -11,12 +11,9 @@ class coustomers extends Model
     protected $fillable=[   'name', 'email', 'phone', 'address', 'city',  'country',
 ];
 
-public function contacts()
+public function user()
 {
-    return ($this->hasMany(contacts::class));
+    return $this->belongsTo(User::class);
 }
-public function tasks()
-{
-    return ($this->hasMany(tasks::class));
-}
+
 }

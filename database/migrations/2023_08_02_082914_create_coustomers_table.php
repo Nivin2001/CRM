@@ -19,7 +19,13 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
-            $table->string('career')->nullable();
+            $table->string('career');
+
+
+    $table->foreignId('user_id')
+    ->constrained('users') // تأكد من أن 'users' هو اسم الجدول الصحيح
+    ->onDelete('restrict'); // استخدم 'restrict' لمنع حذف المستخدم إذا كان لديه عملاء
+
             $table->timestamps();
         });
     }

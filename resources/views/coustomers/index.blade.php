@@ -1,13 +1,22 @@
 @extends('Dashborad.dashborad')
-@extends('layouts.master')
-
+@section('content')
 
 <div class="container ">
-<h2 class="text-center">Customers List</h2>
+<h2 class="text-center" style="margin: 40px">Customers List</h2>
 <div class="row">
+{{--
+    <form action="submit" method="GET">
+        <label for="search">Search by Name:</label>
+        <input type="text" id="search" name="search">
+        <button type="submit">Search</button>
+    </form> --}}
 
   <!-- Table for Displaying Records -->
-
+  @if(session('success'))
+  <div class="alert alert-success">
+      {{ session('success') }}
+  </div>
+@endif
 
   <table class="table">
     <thead>
@@ -30,22 +39,22 @@
                 <td>{{ $customer->name }}</td>
                 <td>{{ $customer->email }}</td>
                 <td>{{ $customer->phone }}</td>
+                <td>{{ $customer->address }}</td>
                 <td>{{ $customer->country }}</td>
                 <td>{{ $customer->city}}</td>
                 <td>{{ $customer->career }}</td>
 
-                <td>
-                    <a href="{{ route('coustomers.edit', $customer->id) }}" class="btn btn-primary">
-                    <i class="bi bi-pencil"></i> Edit
-                </a>
-            </td>
+            <td class="d-flex justify-content-between">
 
-            <td>
+                <a href="{{ route('coustomers.edit', $customer->id) }}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i> Edit
+                </a>
+
                 <form action="{{route('coustomers.destroy',$customer->id)}}" method="post">
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this customer?')">
-                        <i class="bi bi-trash"></i> Delete
+                     <i class="bi bi-trash"></i> Delete
         </td>
 
             </tr>
@@ -54,6 +63,7 @@
 </table>
 </div>
 </div>
+@endsection
 
 <style>
     .table {
@@ -85,5 +95,5 @@
 }
 
 </style>
-
-{{ $customers->links() }} <!-- Pagination Links -->
+{{-- 
+{{ $customers->links() }} <!-- Pagination Links --> --}}
